@@ -13,6 +13,9 @@
     <mybatis.version>3.3.1</mybatis.version>
     <mybatis.spring.version>1.3.0</mybatis.spring.version>
     <mysql.connector.version>5.1.38</mysql.connector.version>
+    <common.fileupload.version>1.3.1</common.fileupload.version>
+    <common.io.version>2.5</common.io.version>
+    <common.beanutils.version>1.9.2</common.beanutils.version>
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -30,6 +33,26 @@
       <groupId>nl.captcha</groupId>
       <artifactId>simplecaptcha</artifactId>
       <version>1.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-web-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.1.0.Final</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
     </dependency>
 
     <dependency>
@@ -82,7 +105,25 @@
 
     <dependency>
       <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
       <version>${spring.version}</version>
     </dependency>
 
@@ -93,14 +134,38 @@
     </dependency>
     <!--spring end-->
 
-    <!--application end-->
+    <!--log start-->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+    <!--日志 end-->
+
+    <!--连接池 end-->
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>druid</artifactId>
       <version>${druid.version}</version>
     </dependency>
-    <!--application end-->
-
+    <!--连接池 end-->
+    <!--文件上传 start-->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${common.fileupload.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${common.io.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>${common.beanutils.version}</version>
+    </dependency>
+    <!--文件上传 end-->
     <!--jpa start-->
     <dependency>
       <groupId>org.springframework.data</groupId>
@@ -129,6 +194,23 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql.connector.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>4.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>servlet-api-2.5</artifactId>
+      <version>6.1.11</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>SpringTest</finalName>
@@ -151,6 +233,42 @@
           </connectors>
         </configuration>
       </plugin>
+      <!--自动生成表结构 start-->
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>1.3.1</version>
+        <executions>
+          <execution>
+            <id>Generate MyBatis Artifacts</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <verbose>true</verbose>
+          <overwrite>true</overwrite>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.1</version>
+          </dependency>
+          <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.3.0</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <!--自动生成表结构 end-->
     </plugins>
   </build>
 </project>
