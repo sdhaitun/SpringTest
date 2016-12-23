@@ -67,7 +67,7 @@
                selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql"/>
         </table>
-        <table tableName="test" domainObjectName="test"
+        <table tableName="test" domainObjectName="Test"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

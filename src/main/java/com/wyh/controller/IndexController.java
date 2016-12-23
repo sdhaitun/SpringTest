@@ -1,10 +1,23 @@
 package com.wyh.controller;
 
+import com.wyh.annotation.FreeAccess;
+import com.wyh.annotation.LoginRequired;
+import com.wyh.annotation.PrivilegeRequired;
+import com.wyh.common.SessionBean;
+import com.wyh.constant.Constants;
+import com.wyh.dao.TestMapper;
+import com.wyh.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import privilege.PrivilegeBean;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by root on 2016/12/20.
@@ -14,10 +27,41 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/index")
 public class IndexController {
 
+    @Autowired
+    TestMapper testMapper;
+
+    @FreeAccess
     @RequestMapping("/index")
-    public String index(HttpServletRequest httpServletRequest, ModelMap modelMap) {
+    public String index(HttpServletRequest httpServletRequest, HttpServletResponse response, ModelMap modelMap) {
         modelMap.addAttribute("name", "name");
-        System.out.println("name");
+        SessionBean sessionBean = new SessionBean();
+        sessionBean.setUser(new User());
+        Set<PrivilegeBean> set = new HashSet<>();
+        set.add(PrivilegeBean.USER_ADD);
+        sessionBean.setPrivileges(set);
+        httpServletRequest.getSession().setAttribute(Constants.SESSION_BEAN, sessionBean);
+        if(httpServletRequest.getSession().getAttribute(Constants.REDIRECT_URL) != null)
+            try {
+                System.out.println(httpServletRequest.getSession().getAttribute(Constants.REDIRECT_URL));
+                response.sendRedirect(httpServletRequest.getSession().getAttribute(Constants.REDIRECT_URL).toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        return "index";
+    }
+
+    @LoginRequired
+    @RequestMapping("/testLogin")
+    public String testLogin(HttpServletRequest httpServletRequest, ModelMap modelMap) {
+        modelMap.addAttribute("login", "login");
+        return "index";
+    }
+
+    @LoginRequired
+    @PrivilegeRequired(privileges = {PrivilegeBean.USER_ADD})
+    @RequestMapping("/testPre")
+    public String testPre(HttpServletRequest httpServletRequest, ModelMap modelMap) {
+        modelMap.addAttribute("login", "login");
         return "index";
     }
 }

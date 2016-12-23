@@ -8,19 +8,22 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <!-- 配置扫描的包 -->
-    <context:component-scan base-package="com.wyh.controller" />
+    <context:component-scan base-package="com.wyh.controller"></context:component-scan>
     <!-- 注册HandlerMapper、HandlerAdapter两个映射类 -->
     <mvc:annotation-driven />
+    <mvc:interceptors>
+        <bean id="loginInterceptor" class="com.wyh.web.AuthorizateInterceptor"/>
+    </mvc:interceptors>
     <!-- 访问静态资源 -->
     <mvc:default-servlet-handler />
     <!--<mvc:interceptors>-->
         <!--<bean id="loginInterceptor" class="cn.nlsde.web.AuthorizateInterceptor"/>-->
     <!--</mvc:interceptors>-->
     <!-- 视图解析器 -->
-    <bean
-            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/"></property>
-        <property name="suffix" value=".jsp"></property>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="utf-8"/>
