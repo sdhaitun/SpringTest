@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -33,6 +34,12 @@
       <groupId>nl.captcha</groupId>
       <artifactId>simplecaptcha</artifactId>
       <version>1.3.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.jhlabs/filters -->
+    <dependency>
+      <groupId>com.jhlabs</groupId>
+      <artifactId>filters</artifactId>
+      <version>2.0.235</version>
     </dependency>
 
     <dependency>
@@ -245,25 +252,7 @@
           </compilerArguments>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>6.1.20</version>
-        <!--<scanIntervalSecond>10</scanIntervalSecond>-->
-        <configuration>
-          <webApp>
-            <contextPath>/</contextPath>
-          </webApp>
-          <stopPort>9966</stopPort>
-          <stopKey>foo</stopKey>
-          <connectors>
-            <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-              <port>8081</port>
-              <maxIdleTime>6000</maxIdleTime>
-            </connector>
-          </connectors>
-        </configuration>
-      </plugin>
+
       <!--自动生成表结构 start-->
       <plugin>
         <groupId>org.mybatis.generator</groupId>
@@ -300,6 +289,25 @@
         </dependencies>
       </plugin>
       <!--自动生成表结构 end-->
+
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <!--<scanIntervalSecond>10</scanIntervalSecond>-->
+        <configuration>
+          <webApp>
+            <contextPath>/enterpriseevaluation</contextPath>
+          </webApp>
+          <stopPort>9966</stopPort>
+          <stopKey>foo</stopKey>
+          <connectors>
+            <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+              <port>8081</port>
+              <maxIdleTime>6000</maxIdleTime>
+            </connector>
+          </connectors>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
