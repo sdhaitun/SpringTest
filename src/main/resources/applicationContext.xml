@@ -5,7 +5,9 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       xmlns:solr="http://www.springframework.org/schema/data/solr"
+       xsi:schemaLocation="http://www.springframework.org/schema/data/solr http://www.springframework.org/schema/data/solr/spring-solr.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
@@ -63,4 +65,26 @@
         <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut-ref="pc"
                      order="1"/>
     </aop:config>
+    <!-- spring data solr配置 -->
+    <solr:solr-server id="solrServer" url="${solr.host}" />
+    <bean id="solrServerFactory"
+          class="org.springframework.data.solr.server.support.MulticoreSolrServerFactory">
+        <constructor-arg ref="solrServer" />
+        <constructor-arg name="cores">
+            <list>
+                <value>${solr.core.people1}</value>
+                <!--<value>${solr.core.book1}</value>-->
+            </list>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="solrTemplate" class="org.springframework.data.solr.core.SolrTemplate">
+        <constructor-arg ref="solrServerFactory" />
+    </bean>
+
+    <solr:repositories base-package="cn.kejso.dao"
+                       multicore-support="true" solr-template-ref="solrTemplate" />
+
+    <bean id="springContextUtil" class="cn.kejso.util.SpringContextUtil" />
 </beans>
