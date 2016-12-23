@@ -43,15 +43,6 @@ public class SecurityTagHandler extends SimpleTagSupport {
         }
     }
 
-
-
-
-
-
-
-
-
-
     private SessionBean getSessionBean() {
         JspContext jspContext = this.getJspContext();
         Object sessionBean = jspContext.getAttribute(Constants.SESSION_BEAN, PageContext.SESSION_SCOPE);
