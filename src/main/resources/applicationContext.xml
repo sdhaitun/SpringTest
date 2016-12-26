@@ -66,25 +66,24 @@
                      order="1"/>
     </aop:config>
     <!-- spring data solr配置 -->
-    <solr:solr-server id="solrServer" url="${solr.host}" />
+    <solr:solr-client id="solrClient" url="${solr.host}" />
+
     <bean id="solrServerFactory"
-          class="org.springframework.data.solr.server.support.MulticoreSolrServerFactory">
-        <constructor-arg ref="solrServer" />
+          class="org.springframework.data.solr.server.support.MulticoreSolrClientFactory">
+        <constructor-arg ref="solrClient" />
         <constructor-arg name="cores">
             <list>
-                <value>${solr.core.people1}</value>
-                <!--<value>${solr.core.book1}</value>-->
+                <value>${solr.core}</value>
             </list>
         </constructor-arg>
     </bean>
 
 
     <bean id="solrTemplate" class="org.springframework.data.solr.core.SolrTemplate">
-        <constructor-arg ref="solrServerFactory" />
+        <constructor-arg ref="solrClient" />
     </bean>
 
-    <solr:repositories base-package="cn.kejso.dao"
+    <solr:repositories base-package="com.wyh.dao.solr"
                        multicore-support="true" solr-template-ref="solrTemplate" />
 
-    <bean id="springContextUtil" class="cn.kejso.util.SpringContextUtil" />
 </beans>
