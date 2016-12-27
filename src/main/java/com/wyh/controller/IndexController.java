@@ -7,6 +7,9 @@ import com.wyh.common.SessionBean;
 import com.wyh.constant.Constants;
 import com.wyh.dao.TestMapper;
 import com.wyh.entity.User;
+import com.wyh.service.solr.CoreService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,9 +29,13 @@ import java.util.Set;
 @Controller
 @RequestMapping("/index")
 public class IndexController {
+    private final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     TestMapper testMapper;
+
+    @Autowired
+    CoreService coreService;
 
     @FreeAccess
     @RequestMapping("/index")
@@ -40,13 +47,16 @@ public class IndexController {
         set.add(PrivilegeBean.USER_ADD);
         sessionBean.setPrivileges(set);
         httpServletRequest.getSession().setAttribute(Constants.SESSION_BEAN, sessionBean);
-        if(httpServletRequest.getSession().getAttribute(Constants.REDIRECT_URL) != null)
+        if(httpServletRequest.getSession().getAttribute(Constants.REDIRECT_URL) != null) {
             try {
                 System.out.println(httpServletRequest.getSession().getAttribute(Constants.REDIRECT_URL));
                 response.sendRedirect(httpServletRequest.getSession().getAttribute(Constants.REDIRECT_URL).toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        coreService.test();
         return "index";
     }
 

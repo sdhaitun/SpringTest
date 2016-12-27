@@ -23,7 +23,8 @@ public interface CoreDao extends SolrCrudRepository<NewCore, Integer>{
 //    @Highlight(prefix = "<em>", postfix = "</em>")
     List<NewCore> findByName(String name);
 
-    List<NewCore> findByS(String name);
+    @Highlight(prefix = "<hight>", postfix = "</hight>", snipplets = 3, fields = {"s", "name"})
+    HighlightPage<NewCore> findBySAndName(String s, String name, Pageable pageable);
 
     NewCore findById(int id);
 }

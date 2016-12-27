@@ -11,14 +11,12 @@
     <context:component-scan base-package="com.wyh.controller"></context:component-scan>
     <!-- 注册HandlerMapper、HandlerAdapter两个映射类 -->
     <mvc:annotation-driven />
-    <mvc:interceptors>
-        <bean id="loginInterceptor" class="com.wyh.web.AuthorizateInterceptor"/>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<bean id="loginInterceptor" class="com.wyh.web.AuthorizateInterceptor"/>-->
+    <!--</mvc:interceptors>-->
     <!-- 访问静态资源 -->
     <mvc:default-servlet-handler />
-    <!--<mvc:interceptors>-->
-        <!--<bean id="loginInterceptor" class="cn.nlsde.web.AuthorizateInterceptor"/>-->
-    <!--</mvc:interceptors>-->
+
     <!-- 视图解析器 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
