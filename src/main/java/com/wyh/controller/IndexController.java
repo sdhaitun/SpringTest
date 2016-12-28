@@ -38,11 +38,10 @@ public class IndexController {
 
     @Autowired
     CoreService coreService;
-//    @Autowired
-//    CookieLocaleResolver resolver;
+
     @FreeAccess
     @RequestMapping("/index")
-    public String index(HttpServletRequest httpServletRequest, HttpServletResponse response, ModelMap modelMap, String language) {
+    public String index(HttpServletRequest httpServletRequest, HttpServletResponse response, ModelMap modelMap) {
         modelMap.addAttribute("name", "name");
         SessionBean sessionBean = new SessionBean();
         sessionBean.setUser(new User());
@@ -58,18 +57,6 @@ public class IndexController {
                 e.printStackTrace();
             }
         }
-        language=language.toLowerCase();
-//        if(language==null||language.equals("")){
-//            return "redirect:/";
-//        }else{
-//            if(language.equals("zh_cn")){
-//                resolver.setLocale(httpServletRequest, response, Locale.CHINA );
-//            }else if(language.equals("en")){
-//                resolver.setLocale(httpServletRequest, response, Locale.ENGLISH );
-//            }else{
-//                resolver.setLocale(httpServletRequest, response, Locale.CHINA );
-//            }
-//        }
 
         coreService.test();
         return "index";
