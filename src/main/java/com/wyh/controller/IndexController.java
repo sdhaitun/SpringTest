@@ -14,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import privilege.PrivilegeBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -36,10 +38,11 @@ public class IndexController {
 
     @Autowired
     CoreService coreService;
-
+//    @Autowired
+//    CookieLocaleResolver resolver;
     @FreeAccess
     @RequestMapping("/index")
-    public String index(HttpServletRequest httpServletRequest, HttpServletResponse response, ModelMap modelMap) {
+    public String index(HttpServletRequest httpServletRequest, HttpServletResponse response, ModelMap modelMap, String language) {
         modelMap.addAttribute("name", "name");
         SessionBean sessionBean = new SessionBean();
         sessionBean.setUser(new User());
@@ -55,6 +58,18 @@ public class IndexController {
                 e.printStackTrace();
             }
         }
+        language=language.toLowerCase();
+//        if(language==null||language.equals("")){
+//            return "redirect:/";
+//        }else{
+//            if(language.equals("zh_cn")){
+//                resolver.setLocale(httpServletRequest, response, Locale.CHINA );
+//            }else if(language.equals("en")){
+//                resolver.setLocale(httpServletRequest, response, Locale.ENGLISH );
+//            }else{
+//                resolver.setLocale(httpServletRequest, response, Locale.CHINA );
+//            }
+//        }
 
         coreService.test();
         return "index";

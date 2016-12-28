@@ -1,6 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="cm" uri="/WEB-INF/taglib/cm.tld" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://"
@@ -50,6 +52,8 @@
 <cm:securityTag privilegeString="USER_ALTER">
     <h1>hh</h1>
 </cm:securityTag>
+<fmt:message key="language.cn" />
+<spring:message code="internationalisation" /><br>
 <img id="code" src="" alt="" style="width:185px;float:right;margin-top:-66px;background:rgba(255,255,255,0.5);border-radius:2px;"/>
 </body>
 </html>
