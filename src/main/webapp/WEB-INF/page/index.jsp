@@ -52,10 +52,8 @@
 <cm:securityTag privilegeString="USER_ALTER">
     <h1>hh</h1>
 </cm:securityTag>
-<fmt:message key="language.cn" />
+<fmt:message key="language.en" />
 <spring:message code="internationalisation" /><br>
-<spring:message code="javax.validation.constraints.AssertFalse.message" /><br>
-<spring:message code="org.hibernate.validator.constraints.test.message" /><br>
 <img id="code" src="" alt="" style="width:185px;float:right;margin-top:-66px;background:rgba(255,255,255,0.5);border-radius:2px;"/>
 </body>
 </html>
