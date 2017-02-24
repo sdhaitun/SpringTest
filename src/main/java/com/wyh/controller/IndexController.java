@@ -13,16 +13,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import privilege.PrivilegeBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by root on 2016/12/20.
@@ -60,6 +60,15 @@ public class IndexController {
 
         coreService.test();
         return "index";
+    }
+
+    @FreeAccess
+    @RequestMapping(value = "test", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List test() {
+        List list  = new ArrayList<>();
+        list.add("s");
+        return list;
     }
 
     @LoginRequired
